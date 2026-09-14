@@ -1,5 +1,7 @@
 """燕赵遗韵交互原型。运行：pip install -r requirements.txt && python app.py"""
-from flask import Flask, jsonify, render_template, request
+import os
+
+from flask import Flask, jsonify, render_template, request, send_from_directory
 
 app = Flask(__name__)
 
@@ -18,6 +20,12 @@ IDIOMS = {
 @app.get("/")
 def index():
     return render_template("index.html", idioms=IDIOMS)
+
+
+@app.get("/knowledge-graph")
+def knowledge_graph():
+    """知识图谱页由 frontend 单独构建，产物输出到 static/graph-app。"""
+    return send_from_directory(os.path.join(app.static_folder, "graph-app"), "index.html")
 
 
 @app.get("/api/idioms")

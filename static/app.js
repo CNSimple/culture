@@ -1,4 +1,4 @@
-﻿const fallbackIdioms={
+const fallbackIdioms={
   '黄粱一梦':{place:'黄粱梦吕仙祠',person:'卢生、吕翁',source:'《枕中记》',meaning:'比喻虚幻的梦想，或荣华富贵转眼成空。',story:true},
   '胡服骑射':{place:'赵王城遗址',person:'赵武灵王',source:'《史记·赵世家》',meaning:'学习他人的长处，勇于改革创新。',story:true},
   '邯郸学步':{place:'学步桥',person:'燕国少年',source:'《庄子·秋水》',meaning:'盲目模仿别人，反而失去自己原有的本领。',story:false},
@@ -35,7 +35,7 @@ function makeCards(){const names=Object.keys(idioms);$('#hot-list').innerHTML=na
 document.addEventListener('click',e=>{const p=e.target.closest('[data-page]');if(p){page(p.dataset.page);return}const n=e.target.closest('[data-idiom]');if(n){detail(n.dataset.idiom);return}});
 $$('#filters button').forEach(b=>b.addEventListener('click',()=>{$$('#filters button').forEach(x=>x.classList.toggle('selected',x===b));const filter=b.dataset.filter;$$('.map-pin').forEach(x=>x.style.display=(filter==='全部'||filter==='成语')?'':'none');$$('.city').forEach(x=>x.style.opacity=(filter==='全部'||filter==='古迹')?'1':'.35');}));
 $$('.graph-filters button').forEach(b=>b.addEventListener('click',()=>{$$('.graph-filters button').forEach(x=>x.classList.toggle('selected',x===b));}));
-$('#close-detail').onclick=()=>$('#detail-overlay').hidden=true;$('#detail-overlay').addEventListener('click',e=>{if(e.target.id==='detail-overlay')e.currentTarget.hidden=true});document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#detail-overlay').hidden=true});$$('.detail-tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;renderTab()});$('#detail-graph').onclick=()=>page('graph');$('#detail-story').onclick=()=>{if(idioms[current].story){page('story');$('#story .story-switch b').textContent=current;$('#story .story-switch span').textContent=current==='胡服骑射'?'黄粱一梦':'胡服骑射';$('#speaker').textContent=current==='胡服骑射'?'赵武灵王':'卢生';$('#dialogue-text').textContent=current==='胡服骑射'?'“今后，赵国将胡服骑射，以强国备。”':'“一枕醒来，方知荣华不过一梦。”';}};
+$('#close-detail').onclick=()=>$('#detail-overlay').hidden=true;$('#detail-overlay').addEventListener('click',e=>{if(e.target.id==='detail-overlay')e.currentTarget.hidden=true});document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#detail-overlay').hidden=true});$$('.detail-tabs button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;renderTab()});$('#detail-graph').onclick=()=>{window.location.href='/knowledge-graph'};$('#detail-story').onclick=()=>{if(idioms[current].story){page('story');$('#story .story-switch b').textContent=current;$('#story .story-switch span').textContent=current==='胡服骑射'?'黄粱一梦':'胡服骑射';$('#speaker').textContent=current==='胡服骑射'?'赵武灵王':'卢生';$('#dialogue-text').textContent=current==='胡服骑射'?'“今后，赵国将胡服骑射，以强国备。”':'“一枕醒来，方知荣华不过一梦。”';}};
 $('#ask-form').addEventListener('submit',async e=>{e.preventDefault();const input=$('#question'),q=input.value.trim();if(!q)return;addMessage(q,'me');input.value='';try{const res=await api('/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question:q})});const data=await res.json();if(!res.ok)throw Error(data.error||'请求失败');addMessage(data.answer+'\n\n原型示例回答 · 可点击右侧史料继续查阅','bot');$('#source-list').innerHTML=data.sources.map((s,i)=>`<div class="source"><b>${i+1}. ${s}</b><span>与“${data.topic}”相关的参考资料</span></div>`).join('')}catch(err){addMessage('暂时无法获取回答：'+err.message,'bot')}});
 function addMessage(text,kind){const div=document.createElement('div');div.className='message '+kind;div.textContent=text;$('#messages').append(div);$('#messages').scrollTop=$('#messages').scrollHeight;}
 $('#image-file').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const url=URL.createObjectURL(file);$('#preview').innerHTML=`<img alt="上传图片预览">`;$('#preview img').src=url;});
@@ -66,4 +66,6 @@ document.getElementById('search-input').addEventListener('input',event=>{
   if(event.target.value.trim())return;
   document.querySelectorAll('#idiom-grid .idiom-card').forEach(card=>card.hidden=false);
 });
+const initialPage=new URLSearchParams(window.location.search).get('page');
+if(initialPage&&document.getElementById(initialPage)?.classList.contains('page'))page(initialPage);
 

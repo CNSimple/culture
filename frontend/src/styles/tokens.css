@@ -1,0 +1,14 @@
+:root {
+  --color-ink-deep: #060f13;
+  --color-ink-surface: #172021;
+  --color-gold: #d4af79;
+  --color-gold-light: #f1d59c;
+  --color-paper: #eaddc6;
+  --color-cyan: #73b7b4;
+  --color-seal: #a63b2d;
+  --nav-height: 64px;
+  --filter-width: 150px;
+  --detail-width: 400px;
+  --timeline-height: 90px;
+  --layout-gap: 0px;
+}

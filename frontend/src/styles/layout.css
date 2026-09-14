@@ -1,0 +1,174 @@
+*{box-sizing:border-box}html,body,#app{width:100%;min-height:100%;margin:0}body{min-width:1024px;color:#332b24;font-family:"Microsoft YaHei","PingFang SC",sans-serif;background:#f5eddf}button,input{font:inherit}button{cursor:pointer}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.graph-page{height:100dvh;min-height:760px;display:grid;grid-template-rows:var(--nav-height) minmax(0,1fr) var(--timeline-height);background:radial-gradient(circle at 50% 45%,#fffdfa,#f1e7d6)}
+.top-navigation{z-index:3;display:flex;align-items:center;gap:25px;padding:0 27px;background:#fffcf6;border-bottom:1px solid #dfd0ba;box-shadow:0 3px 12px #5d44221b;white-space:nowrap}.top-navigation__brand{flex:none;display:flex;align-items:center;gap:13px}.top-navigation__logo{font:900 30px "STKaiti","KaiTi",serif;letter-spacing:4px;color:#39231a;text-shadow:1px 2px #d6ba90}.top-navigation__tagline{max-width:170px;white-space:normal;font-size:10px;line-height:1.4;color:#a28a70}.top-navigation__links{display:flex;align-items:stretch;justify-content:center;gap:18px;flex:1;height:100%;font-size:14px;color:#4d4338}.top-navigation__links>*{display:flex;align-items:center;padding:0 2px;text-decoration:none;color:inherit}.top-navigation__links [aria-current]{position:relative;color:#285f55;font-weight:700}.top-navigation__links [aria-current]:after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;background:#2d7165}.top-navigation__search{position:relative;width:245px;flex:none}.top-navigation__search:before{content:"⌕";position:absolute;left:13px;top:2px;font-size:26px;color:#467669}.top-navigation__search input{width:100%;height:36px;padding:0 12px 0 39px;border:1px solid #d9cbb7;border-radius:20px;outline:none;background:#fffefa;color:#4b463f;font-size:11px}.top-navigation__account{flex:none;position:relative;padding-left:38px;font-size:12px;color:#514537}.top-navigation__account:before{content:"邯";position:absolute;left:0;top:-5px;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;color:#fff4dc;background:#28584e;border:2px solid #d9bc8c;font-family:"KaiTi",serif}
+.graph-main{min-height:0;display:grid;grid-template-columns:var(--filter-width) minmax(0,1fr) var(--detail-width);gap:var(--layout-gap);padding:15px 18px 12px}.entity-filters,.entity-detail,.graph-content{min-width:0;min-height:0;overflow:hidden;background:#fffdf7ed;border:1px solid #dfd0b9;border-radius:11px;box-shadow:0 8px 24px #73562d15}.entity-filters{display:flex;flex-direction:column;padding:19px 12px}.entity-filters h2{margin:0 8px 19px;padding-bottom:15px;border-bottom:1px solid #e9decc;font:700 20px "STKaiti","KaiTi",serif;letter-spacing:2px;color:#294f45}.entity-filters__list{display:flex;flex-direction:column;gap:7px}.entity-filters__list button{display:flex;align-items:center;gap:10px;height:44px;padding:0 9px;text-align:left;border:0;border-radius:7px;background:transparent;color:#544a3e;font-size:13px}.entity-filters__list button.is-active{background:#2d6559;color:#fff9e9;box-shadow:0 3px 8px #24584930}.entity-filters__list button span:first-child{display:grid;place-items:center;width:23px;height:23px;flex:none;border-radius:50%;background:#f4e9d5;color:#6e8e72;font-size:15px}.entity-filters__list button.is-active span:first-child{background:#f8f2e5;color:#2d6559}.entity-filters__decoration{margin-top:auto;height:190px;opacity:.16;background:url('/art/handan-map.png') center bottom/cover no-repeat;mask-image:linear-gradient(transparent,black)}
+.graph-content{position:relative;display:flex;flex-direction:column;background:#fdfaf2}.graph-content__heading{z-index:1;flex:none;height:160px;padding:18px 26px 12px;border-bottom:1px solid #ebdfcb;background:linear-gradient(#fffdf8f5,#fcf7edf2)}.graph-content__heading h1{margin:0;color:#34271f;font:700 30px/1.2 "STKaiti","KaiTi",serif;letter-spacing:5px}.graph-content__heading p{margin:8px 0 15px;color:#8c755b;font-size:13px;letter-spacing:2px}.graph-content__stats{display:flex;gap:0;margin:0}.graph-content__stats div{min-width:110px;padding:0 19px;border-right:1px solid #e4d8c5;text-align:center}.graph-content__stats div:first-child{padding-left:0}.graph-content__stats div:last-child{border:0}.graph-content__stats dt{color:#27675e;font:700 22px/1.1 Georgia,serif}.graph-content__stats dd{margin:4px 0 0;color:#9b876f;font-size:11px}.graph-viewport{position:relative;flex:1;min-height:0;overflow:hidden;background:radial-gradient(ellipse at 50% 42%,#fffdfa,#fbf8f0 56%,#f1e9d9)}.graph-viewport:before{content:"";position:absolute;inset:0;opacity:.27;pointer-events:none;background-image:radial-gradient(#ac9576 .55px,transparent .8px);background-size:7px 7px}.graph-viewport__landscape{position:absolute;inset:0;opacity:.16;background:url('/art/handan-map.png') center 58%/85% auto no-repeat;filter:sepia(1) grayscale(1);mask-image:radial-gradient(ellipse at 50% 58%,transparent 10%,black 100%)}.graph-viewport canvas,.graph-viewport svg{position:absolute;inset:0;width:100%;height:100%}.graph-viewport__tools{position:absolute;right:15px;top:15px;display:flex;flex-direction:column;gap:6px}.graph-viewport__tools button{min-width:90px;height:29px;border:1px solid #ddcfb9;border-radius:5px;background:#fffdf9e6;color:#42685f;font-size:11px;box-shadow:0 2px 8px #846d4818}
+.entity-detail{display:flex;flex-direction:column}.entity-detail__hero{flex:none;height:156px;background:linear-gradient(0deg,#fff8e9aa,#fff8e900),url('/art/handan-map.png') center 48%/cover;border-bottom:1px solid #decdb0}.entity-detail__body{min-height:0;overflow:auto;padding:0 16px 18px;scrollbar-width:thin;scrollbar-color:#d9c9af transparent}.entity-detail__heading{display:flex;align-items:center;justify-content:space-between;margin-top:13px}.entity-detail__heading h2{margin:0;color:#3d2c20;font:700 25px "STKaiti","KaiTi",serif;letter-spacing:3px}.entity-detail__heading p{margin:3px 0 0;color:#a88b6b;font-size:11px}.entity-detail__heading>span{padding:4px 10px;color:#9c5442;background:#f8e9da;border-radius:14px;font-size:11px}.entity-detail__meaning{margin:12px 0;color:#655547;font-size:13px;line-height:1.7}.entity-detail blockquote{margin:0 0 12px;padding:10px 12px;border-left:3px solid #b88e60;background:#f6efdf;color:#776047;font:15px/1.6 "STKaiti","KaiTi",serif}.entity-detail blockquote cite{display:block;text-align:right;font-size:12px;font-style:normal}.entity-detail__actions{display:flex;gap:8px;margin-bottom:13px}.entity-detail__actions button{height:34px;border-radius:5px;border:1px solid #d9c8af;padding:0 11px;color:#52685a;background:#fffcf5;font-size:11px}.entity-detail__actions button:first-child{flex:1;background:#2e675c;border-color:#2e675c;color:#fff9ec}.entity-detail__tabs{display:flex;border-bottom:1px solid #e3d6c1}.entity-detail__tabs>*{flex:1;padding:9px 2px;white-space:nowrap;border:0;background:transparent;color:#897561;font-size:10px}.entity-detail__tabs [aria-selected=true]{color:#2c675b;border-bottom:2px solid #2c675b;font-weight:700}.entity-detail__relations dl{margin:9px 0 0}.entity-detail__relations dl>div{display:grid;grid-template-columns:1fr auto;gap:4px;padding:8px 2px;border-bottom:1px solid #e9decf}.entity-detail__relations dt{color:#8d755b;font-size:11px}.entity-detail__relations dd{grid-column:1;margin:0;color:#443e35;font-size:12px}.entity-detail__relations button{grid-column:2;grid-row:1/3;align-self:center;padding:4px 8px;border:1px solid #d6c6ac;border-radius:4px;color:#427267;background:#fffdf7;font-size:11px}.entity-detail__mini-graph h3{margin:15px 0 9px;color:#345e52;font:700 16px "STKaiti","KaiTi",serif}.entity-detail__mini-graph-content{height:80px;border:1px solid #e4d5bf;border-radius:6px;background:radial-gradient(circle at center,#d6bda2 0 8px,transparent 9px),radial-gradient(circle at 25% 50%,#b8cabb 0 6px,transparent 7px),radial-gradient(circle at 75% 35%,#d9c18e 0 6px,transparent 7px),#faf6eb}
+.historical-timeline{z-index:2;height:var(--timeline-height);display:flex;align-items:center;gap:18px;padding:0 25px;border-top:1px solid #d8c6a8;background:linear-gradient(#fdf8ec,#eee1cb);box-shadow:0 -4px 15px #7b664321}.historical-timeline__mode{flex:none;color:#325e54;font:700 16px "STKaiti","KaiTi",serif;white-space:nowrap}.historical-timeline>button{flex:none;width:34px;height:34px;border:1px solid #2d675c;border-radius:50%;color:white;background:#2d675c}.historical-timeline__eras{flex:1;display:flex;align-items:center;justify-content:space-between;position:relative}.historical-timeline__eras:before{content:"";position:absolute;z-index:0;top:5px;left:6%;right:6%;height:2px;background:#d0b993}.historical-timeline__eras button{z-index:1;min-width:85px;display:flex;flex-direction:column;align-items:center;gap:3px;border:0;background:transparent;color:#5d4e3e;font-size:13px}.historical-timeline__eras button:before{content:"";width:10px;height:10px;border:2px solid #f9f1df;border-radius:50%;background:#b6925f;box-shadow:0 0 0 1px #b6925f}.historical-timeline__eras small{color:#9c866b;font-size:10px;white-space:nowrap}@media(max-width:1250px){.top-navigation__tagline{display:none}.top-navigation__links{gap:11px;font-size:12px}.top-navigation__search{width:200px}.historical-timeline{gap:8px;padding:0 12px}.historical-timeline__eras button{min-width:70px}}
++
+/* Final dark-ink visual treatment: keep the existing component markup intact. */
+body { color: var(--color-paper); background: var(--color-ink-deep); }
+.graph-page {
+  background: radial-gradient(ellipse at 53% 45%, #20302f 0%, #0b181c 50%, #060f13 100%);
+}
+.top-navigation {
+  gap: 19px; padding: 0 27px;
+  background: linear-gradient(180deg, #182324 0%, #0b171a 100%);
+  border-bottom: 1px solid #806b4d;
+  box-shadow: 0 4px 24px #0009;
+}
+.top-navigation__logo {
+  color: var(--color-gold-light); text-shadow: 0 1px 1px #000, 0 0 13px #bd8d465e;
+  font-size: 27px; letter-spacing: 3px;
+}
+.top-navigation__tagline { color: #9f9682; max-width: 184px; }
+.top-navigation__links { gap: 17px; color: #d4c5a8; }
+.top-navigation__links [aria-current] { color: var(--color-gold-light); }
+.top-navigation__links [aria-current]:after { background: var(--color-gold); box-shadow: 0 0 9px #d4af7980; }
+.top-navigation__search { width: 230px; }
+.top-navigation__search input {
+  height: 33px; color: #eaddc6; background: #071316;
+  border-color: #756749; box-shadow: inset 0 1px 8px #0008;
+}
+.top-navigation__search input::placeholder { color: #8c918a; }
+.top-navigation__search:before { color: var(--color-gold); }
+.top-navigation__account { color: #dfd2b8; }
+.top-navigation__account:before { background: #263d3b; color: var(--color-gold-light); border-color: var(--color-gold); }
+.graph-main { padding: 0; }
+.entity-filters, .graph-content, .entity-detail {
+  border-radius: 0; box-shadow: none;
+}
+.entity-filters {
+  padding: 22px 10px 14px;
+  border: 0; border-right: 1px solid #8e724752;
+  background: linear-gradient(90deg, #0d191b 0%, #172322 100%);
+}
+.entity-filters h2 {
+  margin: 0 6px 19px; padding: 0 2px 14px;
+  border-bottom: 1px solid #ab8b5d5a; color: var(--color-gold-light);
+  font-size: 18px; letter-spacing: 2px;
+}
+.entity-filters__list { gap: 5px; }
+.entity-filters__list button {
+  height: 47px; padding: 0 7px; border-radius: 3px;
+  color: #cfc3aa; font-size: 12px;
+  border: 1px solid transparent;
+}
+.entity-filters__list button.is-active {
+  background: linear-gradient(90deg, #5c462c, #2a302a);
+  border-color: #b8905f9c; color: #f3dcaa;
+  box-shadow: inset 3px 0 var(--color-gold), 0 0 14px #bc8a3225;
+}
+.entity-filters__list button span:first-child {
+  width: 22px; height: 22px; color: #d7bd8a;
+  background: #25342f; border: 1px solid #7c7459;
+}
+.entity-filters__list button.is-active span:first-child { background: #9d7849; color: #fff0c9; }
+.entity-filters__decoration {
+  height: 255px; opacity: .3;
+  background: url('/assets/handan-night.png') 25% bottom / auto 100% no-repeat;
+  filter: sepia(.45); mask-image: linear-gradient(transparent, black 45%);
+}
+.graph-content {
+  border: 0;
+  background: #0b171a;
+}
+.graph-content__heading {
+  height: 149px; padding: 21px 30px 13px;
+  background: linear-gradient(180deg, #0b171ae8, #0b171ab5);
+  border-bottom: 1px solid #9e815036;
+}
+.graph-content__heading h1 {
+  color: #f1d59c; font-size: 30px; line-height: 1.2;
+  text-shadow: 0 2px 4px #000, 0 0 20px #d4af7940;
+}
+.graph-content__heading p { margin: 9px 0 17px; color: #c5b99e; }
+.graph-content__stats div { border-right-color: #9878495e; }
+.graph-content__stats dt { color: var(--color-gold-light); }
+.graph-content__stats dd { color: #abaf9d; }
+.graph-viewport {
+  background:
+    linear-gradient(180deg, #0a1519b3 0%, #09151947 22%, #08111452 68%, #060f13d9 100%),
+    url('/assets/handan-night.png') center 54% / cover no-repeat,
+    #0b171a;
+}
+.graph-viewport:before {
+  z-index: 1; opacity: .35;
+  background-image: radial-gradient(#d4af79 0.6px, transparent 1px), radial-gradient(#73b7b4 0.6px, transparent 1px);
+  background-size: 73px 83px, 97px 109px; background-position: 11px 20px, 43px 61px;
+}
+.graph-viewport__landscape {
+  inset: auto 0 0; height: 36%; opacity: .2;
+  background: linear-gradient(transparent, #0a1719);
+  filter: none; mask-image: none;
+}
+.graph-viewport__tools { right: 18px; top: 17px; }
+.graph-viewport__tools button {
+  border-color: #b29662a1; background: #0c1a1cce; color: #dfcca8;
+  box-shadow: inset 0 0 10px #a2843320, 0 2px 10px #0008;
+}
+.entity-detail {
+  border: 0; border-left: 1px solid #ac8b5b;
+  background: #d8c4a0;
+  box-shadow: -8px 0 26px #0008;
+}
+.entity-detail__hero {
+  height: 181px;
+  background: linear-gradient(0deg, #bfa47b 0%, #cdb18a00 42%),
+    url('/assets/huangliang-dream.png') center 64% / cover no-repeat;
+  border-bottom: 2px solid #ac8854;
+}
+.entity-detail__body {
+  padding: 0 21px 22px; color: #413427;
+  background:
+    radial-gradient(circle at 80% 16%, #fff9e390, transparent 34%),
+    repeating-linear-gradient(2deg, transparent 0 3px, #7d603606 4px 5px),
+    linear-gradient(90deg, #d6bf96, #eee0bf 9%, #eadab8 90%, #cbb189);
+}
+.entity-detail__heading { margin-top: 18px; }
+.entity-detail__heading h2 { color: #33261b; font-size: 30px; }
+.entity-detail__heading p { color: #8b6b4b; font-size: 12px; }
+.entity-detail__heading > span {
+  background: #9e513c; color: #fff1cf; border: 1px solid #7d3c2f;
+}
+.entity-detail__meaning { color: #4c3c2c; font-size: 13px; line-height: 1.75; }
+.entity-detail blockquote {
+  background: #f6e9c480; border-left-color: #a63b2d;
+  color: #5d4934; box-shadow: inset 0 0 20px #a2753120;
+}
+.entity-detail__actions button {
+  background: #efe0bf; color: #58462f; border-color: #a98d64;
+}
+.entity-detail__actions button:first-child {
+  color: #f5e4bb; background: linear-gradient(#9e4d37, #78372c);
+  border-color: #a63b2d; box-shadow: 0 3px 9px #6735255c;
+}
+.entity-detail__tabs { border-bottom-color: #a88757; }
+.entity-detail__tabs > * { color: #715a3d; font-size: 11px; }
+.entity-detail__tabs [aria-selected=true] { color: #823d2c; border-bottom-color: #a63b2d; }
+.entity-detail__relations dl > div { border-bottom-color: #af946c99; }
+.entity-detail__relations dt { color: #80664a; }
+.entity-detail__relations dd { color: #3c3025; }
+.entity-detail__relations button { background: #efe0bd; color: #754d33; border-color: #b79a6e; }
+.entity-detail__mini-graph h3 { color: #69432d; }
+.entity-detail__mini-graph-content { border-color: #aa8e67; background-color: #d8c29d; }
+.historical-timeline {
+  gap: 19px; padding: 0 30px;
+  border-top: 1px solid #a98858;
+  background: linear-gradient(180deg, #1d2b2a, #0a1518 75%);
+  box-shadow: 0 -7px 25px #0009;
+}
+.historical-timeline__mode { color: #ead2a1; font-size: 16px; }
+.historical-timeline > button {
+  background: #493d2a; color: #f1d59c; border-color: #b7955f;
+  box-shadow: 0 0 12px #caa45e4d;
+}
+.historical-timeline__eras:before { background: linear-gradient(90deg, #67543b, #d4af79, #67543b); }
+.historical-timeline__eras button { color: #e3d0aa; font-size: 13px; }
+.historical-timeline__eras button:before { background: #c59e5e; border-color: #27302b; box-shadow: 0 0 0 1px #d4af79, 0 0 8px #d4af7966; }
+.historical-timeline__eras small { color: #9f9988; }
+@media (max-width: 1250px) {
+  .top-navigation__tagline { display: none; }
+  .top-navigation__links { gap: 10px; }
+  .historical-timeline { gap: 8px; padding: 0 12px; }
+}

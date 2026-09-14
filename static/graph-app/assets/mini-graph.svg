@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 350 120">
+  <g stroke="#b99b72" stroke-width="1" fill="none"><path d="M175 61 88 25M175 61 263 25M175 61 84 101M175 61 274 101"/></g>
+  <g fill="#86aeb2"><circle cx="88" cy="25" r="4"/><circle cx="263" cy="25" r="4"/><circle cx="84" cy="101" r="4"/><circle cx="274" cy="101" r="4"/></g>
+  <circle cx="175" cy="61" r="25" fill="#e8c891" stroke="#d0a96d"/><text x="175" y="66" text-anchor="middle" font-family="KaiTi,serif" font-size="13" fill="#3b2b20">黄粱一梦</text>
+  <g font-family="KaiTi,serif" font-size="12" fill="#496269" text-anchor="middle"><text x="88" y="16">卢生</text><text x="263" y="16">吕翁</text><text x="84" y="119">黄粱梦吕仙祠</text><text x="274" y="119">《枕中记》</text></g>
+</svg>
