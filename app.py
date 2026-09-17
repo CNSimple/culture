@@ -28,6 +28,12 @@ def knowledge_graph():
     return send_from_directory(os.path.join(app.static_folder, "graph-app"), "index.html")
 
 
+@app.get("/home-map")
+def home_map():
+    """Vue 首页地图，嵌入现有首页的中央地图区域。"""
+    return send_from_directory(os.path.join(app.static_folder, "graph-app"), "index.html")
+
+
 @app.get("/api/idioms")
 def idioms():
     return jsonify(IDIOMS)

@@ -46,10 +46,41 @@ const lines={"胡服骑射":[['赵武灵王','“今后，赵国将胡服骑射�
 function speak(){if(!('speechSynthesis'in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance($('#dialogue-text').textContent);u.lang='zh-CN';u.rate=.9;window.speechSynthesis.speak(u)}$('#sound-btn').onclick=speak;$('#play-audio').onclick=speak;
 const originalStoryClick=$('#detail-story').onclick;$('#detail-story').onclick=()=>{originalStoryClick();if(idioms[current].story){line=0;$('.story-stage').classList.toggle('dream',current==='黄粱一梦');$('#speaker').textContent=lines[current][0][0];$('#dialogue-text').textContent=lines[current][0][1];}};
 makeCards();
-[['.city-a','完璧归赵'],['.city-b','胡服骑射'],['.city-c','邯郸学步'],['.city-d','黄粱一梦'],['.city-e','黄粱一梦']].forEach(([selector,name])=>{
+[['.city-b','胡服骑射'],['.city-c','邯郸学步'],['.city-d','黄粱一梦'],['.city-e','黄粱一梦']].forEach(([selector,name])=>{
   const city=document.querySelector(selector);
   if(city){city.setAttribute('role','button');city.setAttribute('tabindex','0');city.dataset.idiom=name;city.title=`查看${name}`;city.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();detail(name)}})}
 });
+// The illustration is one bitmap: an SVG region follows its 1536×1024 coordinates.
+const mapArt=document.querySelector('.map-art');
+const ancientCity=document.querySelector('.city-a');
+if(mapArt&&ancientCity){
+  const region=document.createElementNS('http://www.w3.org/2000/svg','svg');
+  region.setAttribute('class','map-regions');
+  region.setAttribute('viewBox','0 0 1536 1024');
+  region.setAttribute('preserveAspectRatio','xMidYMid meet');
+  const cityOutline='M 873 285 L 899 221 L 947 185 L 1075 159 L 1132 174 L 1180 217 L 1162 295 L 1099 321 L 959 322 Z';
+  region.innerHTML=`<defs><clipPath id="ancient-city-clip"><path d="${cityOutline}" /></clipPath></defs><image class="map-region-image" href="/static/art/handan-map.png" x="0" y="0" width="1536" height="1024" clip-path="url(#ancient-city-clip)" aria-hidden="true" /><path class="map-region map-region--ancient-city" d="${cityOutline}" role="button" tabindex="0" aria-label="高亮邯郸古城区域" />`;
+  mapArt.insertBefore(region,mapArt.firstChild);
+  const path=region.querySelector('.map-region');
+  const hint=document.querySelector('.map-heading small');
+  const initialHint=hint?.textContent;
+  const toggleCity=()=>{
+    const active=!mapArt.classList.contains('is-ancient-city-selected');
+    mapArt.classList.toggle('is-ancient-city-selected',active);
+    ancientCity.classList.toggle('is-map-selected',active);
+    ancientCity.setAttribute('aria-pressed',String(active));
+    path.setAttribute('aria-pressed',String(active));
+    if(hint)hint.textContent=active?'邯郸古城已高亮 · 再次点击取消':initialHint;
+  };
+  ancientCity.setAttribute('role','button');
+  ancientCity.setAttribute('tabindex','0');
+  ancientCity.setAttribute('aria-label','高亮邯郸古城区域');
+  ancientCity.setAttribute('aria-pressed','false');
+  ancientCity.addEventListener('click',toggleCity);
+  ancientCity.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCity()}});
+  path.addEventListener('click',toggleCity);
+  path.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleCity()}});
+}
 const searchForm=document.getElementById('site-search');
 searchForm.addEventListener('submit',event=>{
   event.preventDefault();
@@ -68,4 +99,38 @@ document.getElementById('search-input').addEventListener('input',event=>{
 });
 const initialPage=new URLSearchParams(window.location.search).get('page');
 if(initialPage&&document.getElementById(initialPage)?.classList.contains('page'))page(initialPage);
+
+// The Vue map runs in the central iframe and publishes its current cultural context.
+// Only the assistant copy changes; the existing assistant actions and page layout stay intact.
+const homeMapFrame=document.querySelector('.home-map-frame');
+const mapAssistantGreeting=document.getElementById('map-assistant-greeting');
+const mapAssistantContext=document.getElementById('map-assistant-context');
+const mapAssistantQuestion=document.getElementById('map-assistant-question');
+function updateMapAssistant(context){
+  if(!context||!mapAssistantGreeting||!mapAssistantContext||!mapAssistantQuestion)return;
+  if(context.type==='city'){
+    mapAssistantGreeting.firstChild.textContent='你好！我是小邯。今天想探索哪段邯郸故事？';
+    mapAssistantContext.hidden=true;
+    mapAssistantQuestion.textContent='“黄粱一梦发生在哪里？”';
+    return;
+  }
+  const stats=context.stats||{};
+  mapAssistantGreeting.firstChild.textContent=context.selectedEntity
+    ?`你好，我们正在探索${context.location}的${context.selectedEntity}。`
+    :`你好，我们现在来到了${context.location}。`;
+  mapAssistantContext.hidden=false;
+  mapAssistantContext.replaceChildren();
+  const intro=document.createTextNode('这里关联：');
+  const counts=document.createElement('b');
+  counts.textContent=` ${stats.idioms||0} 个成语典故 · ${stats.people||0} 位历史人物 · ${stats.sites||0} 处文化遗址`;
+  mapAssistantContext.append(intro,document.createElement('br'),counts);
+  mapAssistantQuestion.textContent=`“${context.questions?.[0]||`介绍${context.location}`}”`;
+}
+window.addEventListener('message',event=>{
+  if(event.origin!==window.location.origin||event.source!==homeMapFrame?.contentWindow)return;
+  if(event.data?.type==='yanzhao:map-context')updateMapAssistant(event.data.context);
+});
+homeMapFrame?.addEventListener('load',()=>{
+  homeMapFrame.contentWindow?.postMessage({type:'yanzhao:request-map-context'},window.location.origin);
+});
 
