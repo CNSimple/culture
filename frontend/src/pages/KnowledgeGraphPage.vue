@@ -4,12 +4,13 @@ import EntityFilterSidebar from '../components/EntityFilterSidebar.vue'
 import GraphViewport from '../components/GraphViewport.vue'
 import EntityDetailPanel from '../components/EntityDetailPanel.vue'
 import HistoricalTimeline from '../components/HistoricalTimeline.vue'
+import { graphMetrics } from '../data/graphData'
 
 const metrics = [
-  { value: '286', label: '文化实体' },
-  { value: '1,024', label: '实体关系' },
-  { value: '7', label: '历史时期' },
-  { value: '50+', label: '经典成语' },
+  { value: String(graphMetrics.entities), label: '文化实体' },
+  { value: String(graphMetrics.relations), label: '实体关系' },
+  { value: String(graphMetrics.categories), label: '节点类型' },
+  { value: String(graphMetrics.idioms), label: '经典成语' },
 ]
 </script>
 
