@@ -31,8 +31,17 @@ const raw = [
   ['cixian-ye-city','邺城遗址','磁县／临漳','魏晋南北朝','都城文化','六朝古都·文脉流长'],
   ['cixian-museum','邺城遗址博物馆','磁县／临漳','当代','考古文化','邺城旧影·文明新章'],
 ] as const
+const supplemental = [
+  ['daming-gate','大名城门','大名','明清','古城建筑','城门雄风·古道通衢'],
+  ['fengfeng-river','滏阳河古镇','峰峰矿区','历史街区','水岸文化','滏水流长·古镇人家'],
+  ['shexian-nuwa-palace','娲皇宫','涉县','北齐','女娲文化','太行圣境·娲皇遗韵'],
+  ['shexian-zhonghuang','中皇山','涉县','历史人文','太行文化','山河有灵·古迹相承'],
+  ['shexian-ancient-road','太行古道','涉县','历史人文','古道文化','千年古道·行旅不息'],
+  ['shexian-waterfall','太行瀑布','涉县','自然人文','山水文化','飞瀑入画·太行清音'],
+] as const
+const allRaw = [...raw, ...supplemental]
 
-export const heritageSites: HeritageSite[] = raw.map(([id,name,region,era,theme,calligraphy]) => ({
+export const heritageSites: HeritageSite[] = allRaw.map(([id,name,region,era,theme,calligraphy]) => ({
   id,name,region,era,theme,calligraphy,image:`${import.meta.env.BASE_URL}sites/${id}.jpg`,
   summary:`${name}是${region}重要的历史文化地标，承载着${era}以来的地域记忆与人文积淀。遗存、环境与地方故事彼此交织，呈现出邯郸深厚的历史层次，也为今天理解燕赵文化、开展文化研学提供了鲜活而珍贵的实物见证。`,
   motto:`走近${name}，在真实遗存中读懂燕赵大地的历史回声。`,
