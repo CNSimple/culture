@@ -38,6 +38,7 @@ function keydown(event: KeyboardEvent) {
       <circle class="region-hotspot__halo" r="27" />
       <circle class="region-hotspot__ring" r="13" />
       <circle class="region-hotspot__dot" r="5" />
+      <text class="region-hotspot__label" x="18" y="5">{{ region.name }}</text>
     </g>
   </g>
 </template>
@@ -49,6 +50,7 @@ function keydown(event: KeyboardEvent) {
 .region-hotspot__halo{fill:#d8b56a;opacity:.06;transform:scale(.62);transform-origin:center;transition:opacity .45s ease,transform .55s cubic-bezier(.22,.61,.36,1)}
 .region-hotspot__ring{fill:#081a1ccc;stroke:#d8b56a;stroke-width:2;opacity:.52;transition:opacity .4s ease,stroke-width .4s ease}
 .region-hotspot__dot{fill:#b68d45;filter:drop-shadow(0 0 5px rgba(216,181,106,.32));transition:fill .4s ease,filter .4s ease}
+.region-hotspot__label{fill:#f0dfbd;font:16px KaiTi,serif;paint-order:stroke;stroke:#081719;stroke-width:5px;stroke-linejoin:round;pointer-events:none;white-space:nowrap}
 .region-hotspot.is-hovered .region-hotspot__halo,.region-hotspot:focus-visible .region-hotspot__halo{opacity:.2;transform:scale(1)}
 .region-hotspot.is-hovered .region-hotspot__ring,.region-hotspot:focus-visible .region-hotspot__ring{opacity:.95;stroke-width:3}
 .region-hotspot.is-hovered .region-hotspot__dot,.region-hotspot:focus-visible .region-hotspot__dot{fill:#f0cf88;filter:drop-shadow(0 0 9px rgba(216,181,106,.7))}
