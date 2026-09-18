@@ -25,7 +25,7 @@ const resolvedSrc = computed(() => `${import.meta.env.BASE_URL}${props.src.repla
 .overview-map-background:after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(5,18,18,.08) 0%,rgba(5,18,18,.28) 46%,rgba(5,18,18,.84) 100%),linear-gradient(90deg,#071719aa,transparent 27%,transparent 73%,#091d1caa)}
 .overview-map-atmosphere{position:absolute;inset:0;pointer-events:none;opacity:.14;background:radial-gradient(ellipse at 11% 48%,#b9c4b272,transparent 34%),radial-gradient(ellipse at 87% 45%,#a0b7ab75,transparent 35%),repeating-linear-gradient(164deg,transparent 0 29px,#c0a77b16 30px 31px,transparent 32px 58px)}
 .overview-map-main{position:absolute;inset:0;overflow:hidden}
-.map-image--overview{width:100%;height:100%;object-fit:contain}
+.map-image--overview{width:100%;height:100%;object-fit:contain;transform:scale(1.22);transform-origin:center}
 .region-map-stage{position:absolute;inset:0;overflow:hidden;background:radial-gradient(ellipse at center,#24302d 0%,#091d1c 75%,#071719 100%);isolation:isolate}
 .region-map-background{position:absolute;inset:0;overflow:hidden;opacity:0;animation:region-background-enter .3s ease-out forwards}
 .region-map-background img{display:block;width:100%;height:100%;object-fit:cover;transform:scale(1.12);filter:blur(22px) brightness(.38) saturate(.75);opacity:.7}
