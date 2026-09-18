@@ -25,6 +25,7 @@ watch(() => props.site.id, () => { expanded.value=null })
           <p class="heritage__vertical">{{ site.calligraphy }}</p>
         </div>
         <article class="heritage__panel">
+          <button class="heritage__close" aria-label="关闭" @click="emit('close')">×</button>
           <span class="heritage__seal">邯</span><p class="heritage__eyebrow">燕赵遗韵 · 古迹实景</p>
           <h1>{{ site.name }}</h1>
           <div class="heritage__tags"><span>{{ site.region }}</span><span>{{ site.era }}</span><span>{{ site.theme }}</span></div>
@@ -43,5 +44,6 @@ watch(() => props.site.id, () => { expanded.value=null })
 .heritage__visual{position:absolute!important;inset:0!important;width:100%!important;height:100%!important}
 .heritage__visual:after{background:linear-gradient(90deg,transparent 28%,#07151644 52%,#071516df 100%),linear-gradient(0deg,#06111399,transparent 38%)!important}
 .heritage__panel{position:absolute!important;z-index:2;top:0;right:0;width:min(43vw,680px)!important;height:100%!important;overflow:auto;padding:9vh 3vw 100px!important;background:linear-gradient(135deg,#182624d9,#0b1717e8)!important;backdrop-filter:blur(9px);animation:panel-in .95s cubic-bezier(.22,.61,.36,1)!important}
+.heritage__panel{width:min(34vw,520px)!important;padding:9vh 2.8vw 100px!important;color:#3d3024;background:linear-gradient(135deg,#f8f0ddf5,#eee0c4f2)!important;border-left:1px solid #c9a66d;box-shadow:-18px 0 42px #3c281d55}.heritage__panel:before{opacity:.12;background:repeating-radial-gradient(circle at 100% 0,#9b7541 0 1px,transparent 2px 17px)}.heritage__close{position:absolute;right:24px;top:22px;border:0;background:transparent;color:#30271f;font:48px/1 Georgia;cursor:pointer}.heritage__eyebrow{color:#86663d}.heritage h1{color:#1e1812;text-shadow:0 1px #fff}.heritage__tags span{border-color:#b7935c;color:#6d5130}.heritage__summary{color:#544438}.heritage__cards button{border-color:#d8bf93;background:#fffaf0;color:#51412f;box-shadow:0 3px 8px #83643b1c}.heritage__cards button:hover,.heritage__cards button.open{border-color:#b2854b;background:#f6ead0}.heritage__cards strong{color:#4b3826}.heritage__cards span{color:#76624b}.heritage blockquote{border-color:#c6a875;color:#745432}
 @media(max-width:800px){.heritage__panel{top:auto!important;bottom:0;width:100%!important;height:64%!important;padding:24px 20px 100px!important}}
 </style>
