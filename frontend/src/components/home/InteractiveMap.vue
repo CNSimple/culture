@@ -110,7 +110,7 @@ function selectSite(site: SiteHotspot) {
   selectedSiteId.value = site.id
   store.currentSite = site.name
   hoverSite(site)
-  if (heritageSitesById[site.id]) { immersiveSite.value = heritageSitesById[site.id]; window.parent.postMessage({ type: 'yanzhao:heritage-open' }, window.location.origin) }
+  if (heritageSitesById[site.id]) { immersiveSite.value = heritageSitesById[site.id]; window.parent.postMessage({ type: 'yanzhao:heritage-open', regionId: store.currentRegion }, window.location.origin) }
 }
 
 async function enterRegion(id: RegionId) {
@@ -245,7 +245,7 @@ function returnToOverview() {
     </div>
     <div ref="fog" class="interactive-map__fog"><MapFog /></div>
     <div ref="breadcrumb" class="interactive-map__breadcrumb"><MapBreadcrumb @home="returnToOverview" /></div>
-    <HeritageImmersive v-if="immersiveSite" :site="immersiveSite" @close="closeImmersive" @change="immersiveSite=$event" />
+    <HeritageImmersive v-if="immersiveSite" :site="immersiveSite" :region-id="store.currentRegion" @close="closeImmersive" @change="immersiveSite=$event" />
   </section>
 </template>
 

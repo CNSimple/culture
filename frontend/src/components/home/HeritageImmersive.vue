@@ -1,18 +1,19 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { heritageSites, type HeritageSite } from '../../data/heritageSites'
-const props = defineProps<{ site: HeritageSite }>()
+const props = defineProps<{ site: HeritageSite; regionId: string | null }>()
 const emit = defineEmits<{ close: []; change: [site: HeritageSite] }>()
 const expanded = ref<string | null>(null)
 const direction = ref<'next'|'prev'>('next')
-const index = computed(() => heritageSites.findIndex(item => item.id === props.site.id))
+const scopedSites = computed(() => props.regionId ? heritageSites.filter(item => item.id.startsWith(`${props.regionId === 'handan-urban' ? 'urban' : props.regionId}-`)) : heritageSites)
+const index = computed(() => scopedSites.value.findIndex(item => item.id === props.site.id))
 const cards = computed(() => [
   ['历史沿革', `${props.site.name}历经${props.site.era}的历史积淀，是观察当地社会与文化演变的重要窗口。`],
   ['地理位置', `位于${props.site.region}，与周边古城、山川及传统聚落共同构成文化景观。`],
   ['文化价值', `集中体现${props.site.theme}特色，兼具历史研究、公共教育与文化传承价值。`],
   ['相关成语', '可结合邯郸成语典故与地方人物故事，进一步理解遗迹背后的历史语境。'],
 ])
-function move(step:number){ direction.value=step>0?'next':'prev'; const next=(index.value+step+heritageSites.length)%heritageSites.length; expanded.value=null; emit('change',heritageSites[next]) }
+function move(step:number){ direction.value=step>0?'next':'prev'; const next=(index.value+step+scopedSites.value.length)%scopedSites.value.length; expanded.value=null; emit('change',scopedSites.value[next]) }
 watch(() => props.site.id, () => { expanded.value=null })
 </script>
 <template>
