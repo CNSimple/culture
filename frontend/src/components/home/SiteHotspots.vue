@@ -42,7 +42,7 @@ const sites = () => siteHotspots[props.regionId] || []
 .site-hotspot__ring{fill:#0a1c1dcc;stroke:#b7904f;stroke-width:2;opacity:.74;transition:all .35s ease}
 .site-hotspot__dot{fill:#d0a55c;filter:drop-shadow(0 0 5px rgba(216,181,106,.55));transition:all .35s ease}
 .site-hotspot__tick{fill:none;stroke:#d8b56a;stroke-width:2;opacity:.45;transition:opacity .35s ease}
-.site-hotspot__label{fill:#f0dfbd;font:15px KaiTi,serif;paint-order:stroke;stroke:#081719;stroke-width:5px;stroke-linejoin:round;pointer-events:none;white-space:nowrap}
+.site-hotspot__label{fill:#f5dfb0;font:700 28px KaiTi,serif;paint-order:stroke;stroke:#081719;stroke-width:8px;stroke-linejoin:round;pointer-events:none;white-space:nowrap}
 .site-hotspot:hover .site-hotspot__halo,.site-hotspot:focus-visible .site-hotspot__halo,.site-hotspot.is-active .site-hotspot__halo{opacity:.2;transform:scale(1)}
 .site-hotspot:hover .site-hotspot__ring,.site-hotspot:focus-visible .site-hotspot__ring,.site-hotspot.is-active .site-hotspot__ring{stroke:#efd291;stroke-width:3;opacity:1}
 .site-hotspot:hover .site-hotspot__dot,.site-hotspot:focus-visible .site-hotspot__dot,.site-hotspot.is-active .site-hotspot__dot{fill:#f3d28d;filter:drop-shadow(0 0 10px rgba(216,181,106,.85))}
