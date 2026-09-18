@@ -25,6 +25,10 @@ const tooltip = ref({ x: 0, y: 0 })
 const siteTooltip = ref({ x: 0, y: 0 })
 const hoveredSite = ref<SiteHotspot | null>(null)
 const selectedSiteId = ref<string | null>(null)
+const activeFilter = ref('全部')
+function syncFilter(event: MessageEvent) { if (event.data?.type === 'map-filter') activeFilter.value = event.data.filter || '全部' }
+onMounted(() => window.addEventListener('message', syncFilter))
+onBeforeUnmount(() => window.removeEventListener('message', syncFilter))
 const currentMap = computed(() => store.currentRegion
   ? { name: regionMapsById[store.currentRegion].name, src: regionMapsById[store.currentRegion].regionImage }
   : mapAssets.main)
@@ -227,8 +231,8 @@ function returnToOverview() {
         <div class="interactive-map__ambient-fog" aria-hidden="true"></div>
         <div v-if="store.currentLevel === 1" class="interactive-map__highlight"><RegionHighlight :hovered-region="store.hoveredRegion" /></div>
         <div class="interactive-map__particles"><MapParticles :map-id="store.currentRegion ?? 'handan'" :region-fit="store.currentLevel === 2" /></div>
-        <div v-if="store.currentLevel === 1" class="interactive-map__hotspots"><RegionHotspots :hovered-region="store.hoveredRegion" :transitioning="store.transitioning" @enter="hoverRegion" @leave="leaveRegion" @select="enterRegion" /></div>
-        <div v-if="store.currentLevel === 2 && store.currentRegion" class="interactive-map__sites"><SiteHotspots :region-id="store.currentRegion" :active-site="selectedSiteId" @enter="hoverSite" @leave="leaveSite" @select="selectSite" /></div>
+        <div v-if="store.currentLevel === 1" class="interactive-map__hotspots"><RegionHotspots :filter="activeFilter" :hovered-region="store.hoveredRegion" :transitioning="store.transitioning" @enter="hoverRegion" @leave="leaveRegion" @select="enterRegion" /></div>
+        <div v-if="store.currentLevel === 2 && store.currentRegion" class="interactive-map__sites"><SiteHotspots :filter="activeFilter" :region-id="store.currentRegion" :active-site="selectedSiteId" @enter="hoverSite" @leave="leaveSite" @select="selectSite" /></div>
         <div class="interactive-map__labels"><MapLabels /></div>
         <div v-if="store.currentLevel === 1" class="interactive-map__tooltip"><RegionTooltip :region-id="store.hoveredRegion" :x="tooltip.x" :y="tooltip.y" /></div>
         <div v-if="store.currentLevel === 2" class="interactive-map__site-tooltip"><SiteTooltip :site="hoveredSite" :x="siteTooltip.x" :y="siteTooltip.y" /></div>

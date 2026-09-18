@@ -3,7 +3,7 @@ import { siteHotspots } from '../../data/siteHotspots'
 import type { RegionId } from '../../stores/mapStore'
 import type { SiteHotspot } from '../../data/siteHotspots'
 
-const props = defineProps<{ regionId: RegionId; activeSite: string | null }>()
+const props = defineProps<{ regionId: RegionId; activeSite: string | null; filter: string }>()
 const emit = defineEmits<{ enter: [site: SiteHotspot]; leave: []; select: [site: SiteHotspot] }>()
 const sites = () => siteHotspots[props.regionId] || []
 </script>
@@ -13,6 +13,7 @@ const sites = () => siteHotspots[props.regionId] || []
     <g
       v-for="site in sites()"
       :key="site.id"
+      v-show="props.filter === '全部' || props.filter === '古迹' || props.filter === '史料'"
       class="site-hotspot"
       :class="{ 'is-active': activeSite === site.id }"
       :transform="`translate(${site.x} ${site.y})`"

@@ -4,7 +4,8 @@ import { mapRegionsById } from '../../data/mapRegions'
 import type { RegionId } from '../../stores/mapStore'
 import RegionHotspot from './RegionHotspot.vue'
 
-defineProps<{ hoveredRegion: RegionId | null; transitioning: boolean }>()
+const props = defineProps<{ filter: string; hoveredRegion: RegionId | null; transitioning: boolean }>()
+function visible(region: (typeof mapRegionsById)[RegionId]) { return props.filter === '全部' || props.filter === '史料' || (props.filter === '成语' && region.knowledge.idiomCount > 0) || (props.filter === '人物' && region.knowledge.personCount > 0) || (props.filter === '古迹' && region.knowledge.siteCount > 0) }
 
 const emit = defineEmits<{
   enter: [id: RegionId]
@@ -17,7 +18,7 @@ const emit = defineEmits<{
 <template>
   <svg class="region-hotspots" :viewBox="`0 0 ${MAP_VIEWBOX.width} ${MAP_VIEWBOX.height}`" preserveAspectRatio="xMidYMid meet" aria-label="地图区域热点" role="group">
     <RegionHotspot
-      v-for="region in regionMaps"
+      v-for="region in regionMaps.filter((item) => visible(mapRegionsById[item.id]))"
       :key="region.id"
       :region="mapRegionsById[region.id]"
       :boundary="region.mainHotspot"
