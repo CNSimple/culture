@@ -15,6 +15,8 @@ import MapBreadcrumb from './MapBreadcrumb.vue'
 import RegionTooltip from './RegionTooltip.vue'
 import SiteHotspots from './SiteHotspots.vue'
 import SiteTooltip from './SiteTooltip.vue'
+import HeritageImmersive from './HeritageImmersive.vue'
+import { heritageSitesById, type HeritageSite } from '../../data/heritageSites'
 
 const store = useMapStore()
 const OVERVIEW_SCALE = 1
@@ -25,6 +27,7 @@ const tooltip = ref({ x: 0, y: 0 })
 const siteTooltip = ref({ x: 0, y: 0 })
 const hoveredSite = ref<SiteHotspot | null>(null)
 const selectedSiteId = ref<string | null>(null)
+const immersiveSite = ref<HeritageSite | null>(null)
 const activeFilter = ref('全部')
 function syncFilter(event: MessageEvent) { if (event.data?.type === 'map-filter') activeFilter.value = event.data.filter || '全部' }
 onMounted(() => window.addEventListener('message', syncFilter))
@@ -106,6 +109,7 @@ function selectSite(site: SiteHotspot) {
   selectedSiteId.value = site.id
   store.currentSite = site.name
   hoverSite(site)
+  if (heritageSitesById[site.id]) immersiveSite.value = heritageSitesById[site.id]
 }
 
 async function enterRegion(id: RegionId) {
@@ -240,6 +244,7 @@ function returnToOverview() {
     </div>
     <div ref="fog" class="interactive-map__fog"><MapFog /></div>
     <div ref="breadcrumb" class="interactive-map__breadcrumb"><MapBreadcrumb @home="returnToOverview" /></div>
+    <HeritageImmersive v-if="immersiveSite" :site="immersiveSite" @close="immersiveSite=null" @change="immersiveSite=$event" />
   </section>
 </template>
 
