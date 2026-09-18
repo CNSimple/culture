@@ -28,6 +28,7 @@ const siteTooltip = ref({ x: 0, y: 0 })
 const hoveredSite = ref<SiteHotspot | null>(null)
 const selectedSiteId = ref<string | null>(null)
 const immersiveSite = ref<HeritageSite | null>(null)
+function closeImmersive() { immersiveSite.value = null; window.parent.postMessage({ type: 'yanzhao:heritage-close' }, window.location.origin) }
 const activeFilter = ref('全部')
 function syncFilter(event: MessageEvent) { if (event.data?.type === 'map-filter') activeFilter.value = event.data.filter || '全部' }
 onMounted(() => window.addEventListener('message', syncFilter))
@@ -109,7 +110,7 @@ function selectSite(site: SiteHotspot) {
   selectedSiteId.value = site.id
   store.currentSite = site.name
   hoverSite(site)
-  if (heritageSitesById[site.id]) immersiveSite.value = heritageSitesById[site.id]
+  if (heritageSitesById[site.id]) { immersiveSite.value = heritageSitesById[site.id]; window.parent.postMessage({ type: 'yanzhao:heritage-open' }, window.location.origin) }
 }
 
 async function enterRegion(id: RegionId) {
@@ -244,7 +245,7 @@ function returnToOverview() {
     </div>
     <div ref="fog" class="interactive-map__fog"><MapFog /></div>
     <div ref="breadcrumb" class="interactive-map__breadcrumb"><MapBreadcrumb @home="returnToOverview" /></div>
-    <HeritageImmersive v-if="immersiveSite" :site="immersiveSite" @close="immersiveSite=null" @change="immersiveSite=$event" />
+    <HeritageImmersive v-if="immersiveSite" :site="immersiveSite" @close="closeImmersive" @change="immersiveSite=$event" />
   </section>
 </template>
 
